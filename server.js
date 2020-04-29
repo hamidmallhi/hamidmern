@@ -1,4 +1,4 @@
-// require('dotenv').config()
+require('dotenv').config()
 // Import npm packages
 const express = require('express');
 const mongoose = require('mongoose');
@@ -11,12 +11,12 @@ const app = express();
 const routes = require('./routes/articles');
 
 // DB Config
-const db = require('./config/keys').MONGODB_URI
+// const db = require('./config/keys').MONGODB_URI
 
 // connect to MongoDB
 
   mongoose
-  .connect(db, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -24,9 +24,6 @@ const db = require('./config/keys').MONGODB_URI
   .catch(err => console.log(err))  
 
   const port = process.env.PORT || 5000
-
-
-    
 
 // mongoose.connection.on('connected', () => {
 //     console.log('Mongoose is connected!');
