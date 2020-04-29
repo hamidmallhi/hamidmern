@@ -7,7 +7,6 @@ const path = require('path');
 
 
 const app = express();
-// const PORT = process.env.PORT || 2020;   
 
 const routes = require('./routes/articles');
 
@@ -40,13 +39,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // serve static assets if in production
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static('client/build'))
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'))
 
-//     app.get('*', (req, res) => {
-//       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-//     })
-// }
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 
 // HTTP request logger
@@ -56,5 +55,7 @@ app.use(morgan('tiny'));
   app.use('/articles', routes);
 
 app.listen(port, console.log(`Server is starting at ${port}`));
+
+
 
 
